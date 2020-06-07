@@ -19,7 +19,7 @@ export default function Login({onSubmit}) {
       type="password"
       name="password"
     ></input>
-    <button>submit</button>
+    <button type="submit">submit</button>
   </form>
   )
 }
