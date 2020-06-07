@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import Login from "./Login";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 
 // test("calls onsubmit when user submits", () => {
 //   //Arrange
@@ -19,7 +19,7 @@ import { render, fireEvent } from "@testing-library/react";
 //   expect(handleSubmit).toHaveBeenCalledWith({username: "devin", password: "ssshhh"});
 
 // });
-
+afterEach(cleanup)
 test("calls onsubmit when user submits", () => {
   //Arrange
   const fakeUser = { username: "devin", password: "pass123" };
@@ -28,7 +28,7 @@ test("calls onsubmit when user submits", () => {
   const { container, getByPlaceholderText, getByText } = render(
     <Login onSubmit={handleSubmit} />
   );
-
+// could also use getByLabelText
   const username = getByPlaceholderText("Username");
   const password = getByPlaceholderText("Password");
 
@@ -39,9 +39,14 @@ test("calls onsubmit when user submits", () => {
   password.value = fakeUser.password;
   //ACT
   fireEvent.submit(form)
-
+button.click()
   //ASSERT
-  expect(handleSubmit).toHaveBeenCalledTimes(1);
+  expect(handleSubmit).toHaveBeenCalledTimes(2);
   expect(handleSubmit).toHaveBeenCalledWith(fakeUser);
   expect(button.type).toBe("submit");
 });
+
+
+test("inner html" , () => {
+    console.log("body", document.body.innerHTML)
+})
